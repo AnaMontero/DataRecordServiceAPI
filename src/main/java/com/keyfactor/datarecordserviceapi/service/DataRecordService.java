@@ -1,11 +1,14 @@
 package com.keyfactor.datarecordserviceapi.service;
 
 import com.keyfactor.datarecordserviceapi.model.DataRecord;
+import com.keyfactor.datarecordserviceapi.model.ServerDateTime;
 import com.keyfactor.datarecordserviceapi.repository.InMemoryDataRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DataRecordService {
@@ -18,6 +21,19 @@ public class DataRecordService {
 
     public DataRecord[] getRecords(LocalDate startDate, LocalDate endDate, int pageNumber, int resultsPerPage) {
 
-        return new DataRecord[0];
+        ServerDateTime recordDataStartDate = ServerDateTime.toServerDateTime(startDate);
+        ServerDateTime recordDataEndDate = ServerDateTime.toServerDateTime(endDate);
+
+        var dataRecords = dataRecordRepository.getRecords(recordDataStartDate, recordDataEndDate, resultsPerPage);
+        var firstItem = pageNumber * resultsPerPage;
+
+        List<DataRecord> pageRecords = new ArrayList<>();
+
+        for(int i = 0; i < resultsPerPage; i++){
+            firstItem += i;
+            pageRecords.add(dataRecords[firstItem]);
+        }
+
+        return pageRecords.toArray(new DataRecord[0]);
     }
 }
