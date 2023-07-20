@@ -1,7 +1,10 @@
 package com.keyfactor.datarecordserviceapi.model;
 
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@Getter
 public class ServerDateTime {
     private final LocalDate dateTime;
 
@@ -19,5 +22,17 @@ public class ServerDateTime {
 
     public static ServerDateTime addMilliseconds(ServerDateTime source, int millis){
         return source;
+    }
+
+    public static ServerDateTime toServerDateTime(LocalDate localDate) {
+        return new ServerDateTime(localDate);
+    }
+
+    public boolean isBefore(ServerDateTime other) {
+        return this.dateTime.compareTo(other.dateTime) < 0;
+    }
+
+    public boolean isAfter(ServerDateTime other) {
+        return this.dateTime.compareTo(other.dateTime) > 0;
     }
 }
