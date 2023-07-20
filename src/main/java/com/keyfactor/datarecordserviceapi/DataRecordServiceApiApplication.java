@@ -9,5 +9,4 @@ public class DataRecordServiceApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DataRecordServiceApiApplication.class, args);
 	}
-
 }
