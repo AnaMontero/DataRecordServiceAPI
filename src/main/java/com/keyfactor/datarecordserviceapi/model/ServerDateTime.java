@@ -24,4 +24,12 @@ public class ServerDateTime {
     public static ServerDateTime toServerDateTime(LocalDate localDate) {
         return new ServerDateTime(localDate);
     }
+
+    public boolean isBefore(ServerDateTime other) {
+        return this.dateTime.compareTo(other.dateTime) < 0;
+    }
+
+    public boolean isAfter(ServerDateTime other) {
+        return this.dateTime.compareTo(other.dateTime) > 0;
+    }
 }

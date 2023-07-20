@@ -26,6 +26,11 @@ public class DataRecordController {
         int pageNumber = userRequest.getPageNumber();
         int resultsPerPage = userRequest.getResultsPerPage();
 
-        return dataRecordService.getRecords(startDate, endDate, pageNumber, resultsPerPage);
+        try {
+            return dataRecordService.getRecords(startDate, endDate, pageNumber, resultsPerPage);
+        }
+        catch (Exception ex) {
+            return new DataRecord[0];
+        }
     }
 }
