@@ -20,4 +20,8 @@ public class ServerDateTime {
     public static ServerDateTime addMilliseconds(ServerDateTime source, int millis){
         return source;
     }
+
+    public static ServerDateTime toServerDateTime(LocalDate localDate) {
+        return new ServerDateTime(localDate);
+    }
 }
