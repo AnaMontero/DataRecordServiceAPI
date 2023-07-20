@@ -24,6 +24,12 @@ public class DataRecordService {
         ServerDateTime recordDataStartDate = ServerDateTime.toServerDateTime(startDate);
         ServerDateTime recordDataEndDate = ServerDateTime.toServerDateTime(endDate);
 
+        List<DataRecord> pageRecords = pagination(pageNumber, resultsPerPage, recordDataStartDate, recordDataEndDate);
+
+        return pageRecords.toArray(new DataRecord[0]);
+    }
+
+    private List<DataRecord> pagination(int pageNumber, int resultsPerPage, ServerDateTime recordDataStartDate, ServerDateTime recordDataEndDate) {
         var dataRecords = dataRecordRepository.getRecords(recordDataStartDate, recordDataEndDate, resultsPerPage);
         var firstItem = pageNumber * resultsPerPage;
 
@@ -33,7 +39,6 @@ public class DataRecordService {
             firstItem += i;
             pageRecords.add(dataRecords[firstItem]);
         }
-
-        return pageRecords.toArray(new DataRecord[0]);
+        return pageRecords;
     }
 }

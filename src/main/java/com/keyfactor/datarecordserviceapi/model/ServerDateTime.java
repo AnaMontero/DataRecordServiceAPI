@@ -1,7 +1,10 @@
 package com.keyfactor.datarecordserviceapi.model;
 
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@Getter
 public class ServerDateTime {
     private final LocalDate dateTime;
 
